@@ -11,6 +11,11 @@ class NewVisitorTest(unittest.TestCase):
 	def tearDown(self):
 		self.browser.quit()
 		
+	def check_for_row_in_list_table(self, row_text):
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn(row_text, [row.text for row in rows])
+
 	def test_can_start_a_list_and_retrieve_it_later(self):
 		
 		# Simone wants to record his endless list of vscreen thoughts and todos,
@@ -52,11 +57,8 @@ class NewVisitorTest(unittest.TestCase):
 		time.sleep(1)
 		
 		# The page updates again and shows both items.
-		table = self.browser.find_element_by_id('id_list_table')
-		rows = table.find_elements_by_tag_name('tr')  
-
-		self.assertIn('1: Make america great again', [row.text for row in rows])
-		self.assertIn('2: Make VScreen great Again', [row.text for row in rows])
+		self.check_for_row_in_list_table('1: Make america great again')
+		self.check_for_row_in_list_table('2: Make VScreen great Again')
 		
 		# Simone wonders if the site will remember his list, 
 		# especially if he clears his cookies, then notices the site has generated
