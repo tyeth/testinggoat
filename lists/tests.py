@@ -41,7 +41,7 @@ class HomepageTest(TestCase):
 		self.assertEqual(Item.objects.count(),0)
 		print('\n\t3')
 	
-	def test_can_save_a_post_request(self):
+	def test_can_save_a_POST_request(self):
 		print('\n\t4')
 		response = self.client.post('/', data={'item_text': 'A new list item'})
 		self.assertEqual(Item.objects.count(),1)
