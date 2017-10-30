@@ -23,7 +23,6 @@ class ItemModeTest(TestCase):
 		
 		first_saved_item = saved_items[0]
 		second_saved_item = saved_items[1]
-		print('\n\t1')
 		self.assertEqual(first_saved_item.text, 'The first (ever) list item')
 		self.assertEqual(second_saved_item.text, 'Item the second')
 		
@@ -34,31 +33,23 @@ class HomepageTest(TestCase):
 	def test_uses_home_template(self):
 		response = self.client.get('/')	 
 		self.assertTemplateUsed(response, 'home.html')
-		print('\n\t2')
-
+		
 	def test_only_saves_items_when_necessary(self):
 		self.client.get('/')
 		self.assertEqual(Item.objects.count(),0)
-		print('\n\t3')
-	
-	def test_can_save_a_POST_request(self):
-		print('\n\t4')
+		
+	#todo: Code smell - post test too long
+	def test_can_save_a_post_request(self):
 		response = self.client.post('/', data={'item_text': 'A new list item'})
 		self.assertEqual(Item.objects.count(),1)
 		new_item = Item.objects.first()
 		self.assertEqual(new_item.text,'A new list item')
+		
+		#self.assertIn('A new list item', response.content.decode())
+		#self.assertTemplateUsed(response, 'home.html')
+		
+	def test_redirects_after_POST(self):
+		response = self.client.post('/', data={'item_text': 'A new list item'})
 		self.assertEqual(response.status_code, 302)
 		self.assertEqual(response['location'],'/')
-		self.assertEqual(false,true)
-	
-	#todo: CODE SMELL : Post test is too long
-	def test_can_save_a_POST_request(self):
-		response = self.client.post('/', data={'item_text':'A new list item'})
-		print('\n\t5')
-		self.assertEqual(Item.objects.count(),1)
-		new_item = Item.objects.first()
-		self.assertEqual(new_item.text, 'A new list item')
-		
-		self.assertIn('A new list item', response.content.decode())
-		self.assertTemplateUsed(response, 'home.html')
 		
