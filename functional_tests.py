@@ -42,7 +42,7 @@ class NewVisitorTest(unittest.TestCase):
 		# When he hits enter, the page updates, and now the page lists
 		# "1: Make america great again" as an item in a to-do list
 		inputbox.send_keys(Keys.ENTER)	
-		time.sleep(10)  
+		time.sleep(1)  
 
 
 		#		 self.assertTrue(
