@@ -1,9 +1,10 @@
+from django.test import LiveServerTestCase
 from selenium import webdriver
 import unittest
 from selenium.webdriver.common.keys import Keys
 import time
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 	
 	def setUp(self):
 		self.browser = webdriver.Firefox()
@@ -20,7 +21,7 @@ class NewVisitorTest(unittest.TestCase):
 		
 		# Simone wants to record his endless list of vscreen thoughts and todos,
 		# he's heard of a very cool website and goes to check it out like anyone.
-		self.browser.get('http://localhost:8000')
+		self.browser.get(self.live_server_url)
 
 
 		# He notices the page title and header mention to-do lists
@@ -70,5 +71,3 @@ class NewVisitorTest(unittest.TestCase):
 		# Satisfied he then goes back to browsing "the internet", but there's a niggling
 		# feeling that he should remove those items and take it seriously. I mean what a tool!
 		
-if __name__ == '__main__':
-	unittest.main(warnings='ignore')
