@@ -4,7 +4,6 @@
 
 '''
 -= Chapter Notes/Aims: =-
-Adjust model so that items are associated with different lists
 
 Add unique URLs for each list
 
