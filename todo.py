@@ -4,8 +4,5 @@
 
 '''
 -= Chapter Notes/Aims: =-
-
-Add unique URLs for each list
-
-Add URLs for adding a new item to an existing list via POST	
+Refactor away some duplication in urls.py
 '''

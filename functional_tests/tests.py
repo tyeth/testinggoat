@@ -70,7 +70,7 @@ class NewVisitorTest(LiveServerTestCase):
 		
 		# Again, there is no trace of Simone's list
 		page_text = self.browser.find_element_by_tag_name('body').text
-		self.assertNotIn('Make america great again')
+		self.assertNotIn('Make america great again',page_text)
 		self.assertIn('Buy Milk',page_text)
 		
 		# Satisfied they both go back to sleep
@@ -116,8 +116,8 @@ class NewVisitorTest(LiveServerTestCase):
 		time.sleep(1)
 		
 		# The page updates again and shows both items.
-		self.wait_for_row_in_list_table('1: Make america great again')
 		self.wait_for_row_in_list_table('2: Make VScreen great Again')
+		self.wait_for_row_in_list_table('1: Make america great again')
 		
 		# Simone wonders if the site will remember his list, 
 		# especially if he clears his cookies, then notices the site has generated
