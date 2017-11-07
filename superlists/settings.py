@@ -25,7 +25,12 @@ SECRET_KEY = '#odtea4e*=_i_4-!(v&x9s^ok%15xbo(s)2k&!1g*6^n^7_$$@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.mortgages4all.co.uk',
+    'mortgages4all.co.uk',
+    'todo.mortgages4all.co.uk',
+    'todo-staging.mortgages4all.co.uk',
+]
 
 
 # Application definition
