@@ -1,6 +1,1 @@
-db.sqlite3
-geckodriver.log
-__pycache__
-*.pyc
-/.vs
-.idea/
+gunicorn-todo-staging.conf gunicorn-todo-staging.mortgages4all.co.uk.service
