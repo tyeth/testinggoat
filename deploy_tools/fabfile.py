@@ -14,7 +14,7 @@ def deploy():
 	_update_static_files(source_folder)
 	_update_database(source_folder)
 	ubuntu_version = run('lsb_release -rs')
-	__cmdline_magic(env.host, ubuntu_version = '14.04')
+	__cmdline_magic(env.host, source_folder, ubuntu_version == '14.04')
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -61,15 +61,23 @@ def __manage(source_folder, cmdstr):
 		f' && ../virtualenv/bin/python manage.py {cmdstr}'
 	)
 
-def __cmdline_magic(site_name, ubuntu14=True):
-	run(f'sed "s/SITENAME/{site_name}/g" source/deploy_tools/nginx.template.conf | sudo tee /etc/nginx/sites-available/{site_name}')
-	run(f'sudo ln -s ../sites-available/{site_name} /etc/nginx/sites-available/{site_name}')
+def __cmdline_magic(site_name, source_folder, ubuntu14=True):
+	nginx_file = f'/etc/nginx/sites-available/{site_name}'
+	if not exists(nginx_file):
+		run(f'sed "s/SITENAME/{site_name}/g" {source_folder}/deploy_tools/nginx.template.conf | sudo tee /etc/nginx/sites-available/{site_name}')
+	nginx_file = f'/etc/nginx/sites-enabled/{site_name}'
+	if not exists(nginx_file):
+		run(f'sudo ln -s /etc/nginx/sites-available/{site_name} /etc/nginx/sites-enabled/{site_name}')
 	if not ubuntu14:
-		run(f'sed "s/SITENAME/{site_name}/g source/deploy_tools/gunicorn-systemd.template.service | sudo tee /etc/systemd/system/gunicorn-{site_name}.service')
+		service_file = f'/etc/systemd/system/gunicorn-{site_name}.service'
+		if not exists(service_file):
+			run(f'sed "s/SITENAME/{site_name}/g" {source_folder}/deploy_tools/gunicorn-systemd.template.service | sudo tee /etc/systemd/system/gunicorn-{site_name}.service')
 		run(f'sudo systemctl daemon-reload')
 		run(f'sudo systemctl reload nginx')
 		run(f'sudo systemctl enable gunicorn-{site_name}')
 		run(f'sudo systemctl start gunicorn-{site_name}')
 	else:
-		run(f'sed "s/SITENAME/{site_name}/g source/deploy_tools/gunicorn-upstart.template.conf | sudo tee /etc/init/gunicorn-{site_name}.conf')
+		service_file = f'/etc/init/gunicorn-{site_name}.conf'
+		if not exists(service_file):
+			run(f'sed "s/SITENAME/{site_name}/g" {source_folder}/deploy_tools/gunicorn-upstart.template.conf | sudo tee /etc/init/gunicorn-{site_name}.conf')
 		run('sudo reboot')
