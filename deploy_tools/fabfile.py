@@ -31,7 +31,7 @@ def _update_settings(source_folder, site_name):
 	settings_path = source_folder + '/superlists/settings.py'
 	sed(settings_path,"DEBUG = True", "DEBUG = False")
 	sed(settings_path,
-		'ALLOWED_HOSTS =.*?]',
+		'ALLOWED_HOSTS =.+$',
 		f'ALLOWED_HOSTS = ["{site_name}", "localhost", "127.0.0.1"]'
 	)
 	secret_key_file = source_folder + '/superlists/secret_key.py'
@@ -55,5 +55,5 @@ def _update_database(source_folder):
 def __manage(source_folder, cmdstr):
 	run(
 		f'cd {source_folder}'
-		' && ../virtualenv/bin/python manage.py {cmdstr}'
+		f' && ../virtualenv/bin/python manage.py {cmdstr}'
 	)
