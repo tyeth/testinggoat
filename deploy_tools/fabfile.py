@@ -14,7 +14,7 @@ def deploy():
 	_update_static_files(source_folder)
 	_update_database(source_folder)
 	ubuntu_version = run('lsb_release -rs')
-	__cmdline_magic(env.host, ubuntu_version = '14.04' || False)
+	__cmdline_magic(env.host, ubuntu_version = '14.04')
 
 
 def _create_directory_structure_if_necessary(site_folder):
