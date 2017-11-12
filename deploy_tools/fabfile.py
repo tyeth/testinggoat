@@ -14,7 +14,7 @@ def deploy():
 	_update_static_files(source_folder)
 	_update_database(source_folder)
 	ubuntu_version = run('lsb_release -rs')
-	__cmdline_magic(env.host, source_folder, ubuntu_version == '14.04')
+	# __cmdline_magic(env.host, source_folder, ubuntu_version == '14.04')
 
 
 def _create_directory_structure_if_necessary(site_folder):
@@ -62,6 +62,8 @@ def __manage(source_folder, cmdstr):
 	)
 
 def __cmdline_magic(site_name, source_folder, ubuntu14=True):
+	# This introduced an error at some point in the past where an empty conf was created,
+	# then exists wouldn't replace it.
 	nginx_file = f'/etc/nginx/sites-available/{site_name}'
 	if not exists(nginx_file):
 		run(f'sed "s/SITENAME/{site_name}/g" {source_folder}/deploy_tools/nginx.template.conf | sudo tee /etc/nginx/sites-available/{site_name}')
