@@ -1,1 +1,2 @@
 gunicorn-todo-staging.conf gunicorn-todo-staging.mortgages4all.co.uk.service
+**/_pycache*/*
