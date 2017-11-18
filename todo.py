@@ -1,8 +1,5 @@
-#todo: support more than one list
-#todo: clean up after FT runs
-#todo: remove time.sleeps
+Remove hardcoded URLs from views.py
 
-'''
--= Chapter Notes/Aims: =-
-Refactor away some duplication in urls.py
-'''
+Remove hardcoded URL from forms in list.html and home.html
+
+Remove duplication of validation logic in views
