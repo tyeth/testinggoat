@@ -43,7 +43,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def tearDown(self):
         # self.browser.quit()
         self.browser.get_screenshot_as_file(self.CURRENT_TEST)
-
+        self.browser.refresh()
         self.browser.close()
 
     def wait_for_row_in_list_table(self, row_text):
