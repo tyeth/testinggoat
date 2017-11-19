@@ -7,6 +7,8 @@ from lists.models import Item, List
 
 from lists.views import home_page
 
+from lists.forms import ItemForm
+
 class NewListTest(TestCase):
 
     def test_validation_errors_are_sent_back_to_home_page_template(self):
@@ -112,3 +114,6 @@ class HomepageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
+    def test_home_page_uses_item_form(self):
+        response = self.client.get('/')
+        self.assertIsInstance(response.context['form'],ItemForm)
