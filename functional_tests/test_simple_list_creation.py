@@ -20,7 +20,7 @@ class NewVisitorTest(FunctionalTest):
 
 
         # He is invited to enter a to-do item straight away
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         self.assertEqual(
             inputbox.get_attribute('placeholder'),
             'Enter a to-do item'
@@ -41,7 +41,7 @@ class NewVisitorTest(FunctionalTest):
         #		 )
 
         # There is still the todo entry fieldset, he enters "Make VScreen great Again"
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('Make VScreen great Again')
         inputbox.send_keys(Keys.ENTER)
         time.sleep(1)
@@ -64,7 +64,7 @@ class NewVisitorTest(FunctionalTest):
         self.setCurrentTest('test_multiple_users_can_start_lists_at_different_urls')
         # simone starts a new to-do list
         self.browser.get(self.live_server_url)
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('Make VScreen great Again')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Make VScreen great Again')
@@ -87,7 +87,7 @@ class NewVisitorTest(FunctionalTest):
         self.assertNotIn('Make VScreen great Again', page_text)
 
         # Nathan starts a new list by entering a new item. He is less crazy than Simone.
-        inputbox = self.browser.find_element_by_id('id_new_item')
+        inputbox = self.get_item_input_box()
         inputbox.send_keys('Buy Milk')
         inputbox.send_keys(Keys.ENTER)
         self.wait_for_row_in_list_table('1: Buy Milk')
