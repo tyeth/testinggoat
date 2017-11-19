@@ -6,6 +6,8 @@ class ItemValidationTest(FunctionalTest):
 
 
     def test_cannot_add_empty_list_items(self):
+        self.setCurrentTest('test_cannot_add_empty_list_items')
+
         # Simone goes to the home page and accidentally tries to submit
         # an empty list item. He hits Enter on the empty input box
         self.browser.get(self.live_server_url)

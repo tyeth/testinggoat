@@ -4,6 +4,7 @@ from .base import FunctionalTest
 class LayoutTest(FunctionalTest):
 
     def test_layout_and_styling(self):
+        self.setCurrentTest('test_layout_and_styling')
         # Edith goes to the home page
         self.browser.get(self.live_server_url)
         self.browser.set_window_size(1024, 768)

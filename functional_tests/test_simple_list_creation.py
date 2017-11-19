@@ -6,6 +6,7 @@ import time
 class NewVisitorTest(FunctionalTest):
 
     def test_can_start_a_one_person_list_and_retrieve_it_later(self):
+        self.setCurrentTest('test_can_start_a_one_person_list_and_retrieve_it_later')
 
         # Simone wants to record his endless list of vscreen thoughts and todos,
         # he's heard of a very cool website and goes to check it out like anyone.
@@ -60,6 +61,7 @@ class NewVisitorTest(FunctionalTest):
         # feeling that he should remove those items and take it seriously. I mean what a tool!
 
     def test_multiple_users_can_start_lists_at_different_urls(self):
+        self.setCurrentTest('test_multiple_users_can_start_lists_at_different_urls')
         # simone starts a new to-do list
         self.browser.get(self.live_server_url)
         inputbox = self.browser.find_element_by_id('id_new_item')
